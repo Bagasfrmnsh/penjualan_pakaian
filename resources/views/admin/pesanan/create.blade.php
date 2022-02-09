@@ -29,14 +29,14 @@ Pesanan
                     Data Pesanan
                 </div>
                 <div class="card-body">
-                   <form action="{{route('pesanan.store')}}" method="post" enctype="multipart/form-data">
+                   <form action="{{route('pesanan.store')}}" method="post" enctype="multipart/form-data" placeholder="Masukan Angka" pottern="{12}" title="Dengan angka">
                         @csrf
                         <div class="form-group">
                             <label for="">Pemesan</label>
                             <input type="text" name="pemesan" class="form-control @error('pemesan') is-invalid @enderror">
                              @error('pemesan')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>Pemesan ini wajib di isi huruf!</strong>
                                 </span>
                             @enderror
                         </div>
@@ -45,7 +45,7 @@ Pesanan
                             <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror">
                              @error('alamat')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>Alamat ini wajib di isi huruf</strong>
                                 </span>
                             @enderror
                         </div>
@@ -54,7 +54,7 @@ Pesanan
                             <input type="text" name="no_telephone" class="form-control @error('no_telephone') is-invalid @enderror">
                              @error('no_telephone')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>Nomor Telephone ini wajib di isi angka</strong>
                                 </span>
                             @enderror
                         </div>
@@ -63,7 +63,7 @@ Pesanan
                             <input type="text" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
                              @error('jumlah')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>jumlah ini wajib di isi angka</strong>
                                 </span>
                             @enderror
                         </div>
@@ -85,7 +85,7 @@ Pesanan
                             <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror">
                              @error('harga')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>Harga ini wajib di isi huruf</strong>
                                 </span>
                             @enderror
                         </div>
@@ -94,13 +94,13 @@ Pesanan
                             <input type="date" name="tanggal_pesan" class="form-control @error('tanggal_pesan') is-invalid @enderror">
                              @error('tanggal_pesan')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>Tanggal Pesan ini wajib di isi huruf</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <button type="reset" class="btn btn-outline-warning">Kembali</button>
-                            <button type="submit" class="btn btn-outline-primary">Checkou</button>
+                            <button type="submit" class="btn btn-outline-primary">Checkout</button>
                         </div>
                    </form>
                 </div>

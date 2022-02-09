@@ -32,10 +32,10 @@ Dashboard
                         @csrf
                         <div class="form-group">
                             <label for="">Nama Barang</label>
-                            <input type="text" name="nama_barang" class="form-control @error('title') is-invalid @enderror">
+                            <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror">
                              @error('nama_barang')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>nama barang ini wajib di isi huruf!</strong>
                                 </span>
                             @enderror
                         </div>
@@ -44,25 +44,25 @@ Dashboard
                             <input type="text" name="stok" class="form-control @error('stok') is-invalid @enderror">
                              @error('stok')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>stock ini wajib di isi angka!</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Tanggal Masuk</label>
-                            <input type="date" name="tanggal_masuk" class="form-control @error('amount') is-invalid @enderror">
+                            <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk') is-invalid @enderror">
                              @error('tanggal_masuk')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>tanggal ini wajib di isi angka!</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Harga</label>
-                            <input type="text" name="harga" class="form-control @error('amount') is-invalid @enderror">
+                            <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror">
                              @error('harga')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>harga ini wajib di isi angka!</strong>
                                 </span>
                             @enderror
                         </div>
@@ -83,19 +83,19 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Deskripsi</label>
-                            <input type="text" name="deskripsi" class="form-control @error('amount') is-invalid @enderror">
+                            <input type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror">
                              @error('deskripsi')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>deskripsi ini wajib di isi huruf!</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Masukan Gambar</label>
-                            <input type="file" name="gambar" class="form-control @error('cover') is-invalid @enderror">
+                            <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror">
                              @error('gambar')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>gambar ini wajib di isi!</strong>
                                 </span>
                             @enderror
                         </div>

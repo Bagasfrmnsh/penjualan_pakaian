@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\PembayaranController;
 
 
 /*
@@ -41,7 +42,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'role:admin']], funct
 });
 
 //Hanya untuk role pengguna
-Route::group(['prefix' => 'pengguna','middleware' => ['auth', 'role:pengguna']], function(){
+Route::group(['prefix' => 'pengguna','middleware' => ['auth', 'role:admin']], function(){
     Route::get('/', function(){
         return 'halaman pengguna';
     });
@@ -54,6 +55,7 @@ Route::group(['prefix' => 'pengguna','middleware' => ['auth', 'role:pengguna']],
 Route::group(['prefix' => 'admin', 'middlewere' => ['auth']], function(){
     Route::get('barang', function(){
         return view('admin.pengelola.index');
+
     })->middleware(['role:admin|pengguna']);
 
 
@@ -61,5 +63,8 @@ Route::group(['prefix' => 'admin', 'middlewere' => ['auth']], function(){
 });
 Route::resource('admin/pengelola', BarangController::class);
 Route::resource('admin/pesanan', PesananController::class);
+Route::resource('admin/transaksi', PembayaranController::class);
+
+
 
 

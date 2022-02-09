@@ -12,7 +12,7 @@ Dashboard
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1 class="m-0">Edit Produk</h1>
+                <h1 class="m-0">Show Produk</h1>
             </div>
         </div>
     </div>

@@ -249,7 +249,7 @@ return [
             'text' => 'Barang',
             'url'  => 'admin/pengelola',
             'icon' => 'fas fa-box-open',
-            'can'  => 'AksesPengguna'
+            'can'  => 'AksesAdmin'
             
         ],
         [
@@ -262,12 +262,6 @@ return [
             'text' => 'Transaksi',
             'url'  => 'admin/transaksi',
             'icon' => 'fas fa-dollar-sign',
-            
-        ],
-        [
-            'text' => 'Laporan',
-            'url'  => 'admin/laporan',
-            'icon' => 'fas fa-folder-open',
             
         ],
 

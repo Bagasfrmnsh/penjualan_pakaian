@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembayaran;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -17,7 +18,6 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::orderbyDesc("created_at")->paginate(10);
         return view('admin.pembayaran.index', compact('pembayaran'));
     }
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +26,8 @@ class PembayaranController extends Controller
      */
     public function create()
     {
-        return view('admin.pembayaran.create');
+        $pesanan = Pesanan::all();
+        return view('admin.pembayaran.create',compact('pesanan'));
 
     }
 
@@ -39,23 +40,16 @@ class PembayaranController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_barang'=>'required',
-            'no_telephone'=>'required',
-            'qty'=>'required',
             'pesanan_id'=>'required',
             'tanggal_bayar'=>'required',
-            'total'=>'required',
         ]);
 
         $pembayaran = new pembayaran;
-        $pembayaran->nama_barang = $request->nama_barang;
-        $pembayaran->tanggal_keluar = $request->tanggal_keluar;
-        $pembayaran->qty = $request->qty;
         $pembayaran->pesanan_id = $request->pesanan_id;
         $pembayaran->tanggal_bayar = $request->tanggal_bayar;
-        $pembayaran->total = $request->total;
+        $pembayaran->total = $pembayaran->pesanan->jumlah * $pembayaran->pesanan->harga;
         $pembayaran->save();
-        return redirect()->route('pembayaran.index');
+        return redirect()->route('transaksi.index');
     }
 
     /**
@@ -64,10 +58,10 @@ class PembayaranController extends Controller
      * @param  \App\Models\Pembayaran  $pembayaran
      * @return \Illuminate\Http\Response
      */
-    public function show(Pembayaran $pembayaran)
+    public function show($id)
     {
-        $pembayaran = Pembayaran::findOrFail($id);
-        return view('admin.pembayaran.show', compact('pembayaran'));
+        $transaksi = Pembayaran::findOrFail($id);
+        return view('admin.pembayaran.show', compact('transaksi'));
     }
 
     /**
@@ -76,7 +70,7 @@ class PembayaranController extends Controller
      * @param  \App\Models\Pembayaran  $pembayaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pembayaran $pembayaran)
+    public function edit($id)
     {
         $pembayaran = Pembayaran::findOrFail($id);
         return view('admin.pembayaran.edit', compact('pembayaran'));
@@ -89,7 +83,7 @@ class PembayaranController extends Controller
      * @param  \App\Models\Pembayaran  $pembayaran
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pembayaran $pembayaran)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'pembayaran' => 'required',
@@ -98,7 +92,7 @@ class PembayaranController extends Controller
         $pembayaran = pembayaran::findOrFail($id);
         $pembayaran->pemesan = $request->pemesan;
         $pembayaran->save();
-        return redirect()->route('pesanan.index');
+        return redirect()->route('transaksi.index');
     }
 
     /**
@@ -107,8 +101,11 @@ class PembayaranController extends Controller
      * @param  \App\Models\Pembayaran  $pembayaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pembayaran $pembayaran)
+    public function destroy($id)
     {
-        //
+        $pembayaran =Pembayaran::findOrFail($id);
+        $pembayaran->delete();
+        return redirect()->route('transaksi.index');
     }
 }
+
