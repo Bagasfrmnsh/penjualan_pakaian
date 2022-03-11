@@ -11,6 +11,43 @@
     </div>
 </div>
 @endsection
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
+@endsection
+
+@section('js')
+    <script src="{{ asset('DataTables/datatables.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#pengelola').DataTable();
+        });
+    </script>
+    @endsection
+
+@section('js')
+<script src="{{asset('js/sweetalert2.js')}}"></script>
+<script>
+    $(".delete-confirm").click(function (event) {
+        var form = $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+</script>
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -21,42 +58,44 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
   <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
-</svg>Tambah Barang</a>
+</svg> Tambah Barang</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="pengelola">
+                            <thead>
                             <tr>
                                <th>Nomor</th>
+                                <th>Kode barang</th>
                                 <th>Nama Barang</th>
                                 <th>Stock</th>
                                 <th>Tanggal Masuk</th>
-                                <th>Harga</th>
                                 <th>Kategori</th>
-                                <th>Deskripsi</th>
+                                <th>Harga</th>
                                 <th>Gambar</th>
                                 <th>Aksi</th>
                             </tr>
+                            </thead>
+                            <tbody>
                             @php
                                 $no = 1;
                             @endphp
                             @foreach ($barang as $data)
                             <tr>
                                 <td>{{$no++}}</td>
+                                <td>{{$data->kode_barang}}</td>
                                 <td>{{$data->nama_barang}}</td>
                                 <td>{{$data->stok}}</td>
                                 <td>{{$data->tanggal_masuk}}</td>
-                                <td>{{$data->harga}}</td>
                                 <td>{{$data->kategori}}</td>
-                                <td>{{$data->deskripsi}}</td>
+                                <td>{{$data->harga}}</td>
                                 <td><img src="{{$data->image()}}" alt="" style="width:150px; height:150px;" alt="gambar"></td>
-
-
                                 <td>
                                     <form action="{{route('pengelola.destroy' , $data->id)}}" method="POST">
                                         @method('delete')
                                         @csrf
-                                        <a href="{{route('pengelola.edit', $data->id)}}" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <div class="d-flex ">
+                                        <a href="{{route('pengelola.edit', $data->id)}}" class="btn btn-outline-success mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
 </svg>   Edit</a>
@@ -69,18 +108,22 @@
         </ul>
     </div>
 @endif</a>
-                                        <a href="{{route('pengelola.show' ,$data->id)}}" class="btn btn-outline-warning"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+
+<a href="{{route('pengelola.show' ,$data->id)}}" class="btn btn-outline-warning mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
   <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
   <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
 </svg>   Show</a>
 <form action="{{ route('pengelola.destroy', $data->id) }}" method="post">
+ 
 
 @csrf
-@method('delete')  <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin menghapus ini?');">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+@method('delete')  
+<button type="submit" class="btn btn-outline-danger delete-confirm"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
 </svg>   Delete</button>
+</div>
+
 
 
 </form>
@@ -90,6 +133,7 @@
                             </tr>
 
                             @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>

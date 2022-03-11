@@ -24,80 +24,62 @@ Dashboard
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"> Data Produk</div>
+                <div class="card-header">Show Data Produk</div>
                 <div class="card-body">
                     <form action="{{route('pengelola.update', $barang->id)}}" method="post">
                         @csrf
                         @method('put')
-                        <div class="form-group">
-                            <label for="">Nama Barang</label>
-                            <input type="text" name="nama_barang" value="{{$barang->nama_barang}}" class="form-control @error('title') is-invalid @enderror" readonly>
-                             @error('nama_barang')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Stok</label>
-                            <input type="text" name="stok" value="{{$barang->stok}}" class="form-control @error('title') is-invalid @enderror" readonly>
-                             @error('stock')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Tanggal Masuk</label>
-                            <input type="date" name="tanggal_masuk" value="{{$barang->tanggal_masuk}}" class="form-control @error('amount') is-invalid @enderror" readonly>
-                             @error('tanggal_masuk')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Harga</label>
-                            <input type="text" name="harga" value="{{$barang->harga}}" class="form-control @error('amount') is-invalid @enderror" readonly>
-                             @error('harga')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="kategori">Kategori :</label> <br>
-                        <div class="form-check form-check-inline">
-                            <label for="kategori"readonly>
-                                <input type="radio" name="kategori" value="{{$barang->kategori}}" id="kategori" >Anak-anak
-                                <input type="radio" name="kategori" value="{{$barang->kategori}}" id="kategori">Remaja
-                                <input type="radio" name="kategori" value="{{$barang->kategori}}" id="kategori">Dewasa
-                            </label>
-                            @error('kategori')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Deskripsi</label>
-                            <input type="text" name="deskripsi" value="{{$barang->deskripsi}}" class="form-control @error('amount') is-invalid @enderror" readonly>
-                             @error('deskripsi')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Masukan Gambar</label>
-                            <input type="file" name="gambar" value="{{$barang->gambar}}" class="form-control @error('cover') is-invalid @enderror"readonly>
-                             @error('gambar')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                        <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{$barang->image()}}" alt="" style="width:150px; height:150px;" alt="gambar">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title" style: text-align = center>{{$barang->nama_barang}}</h5>
+        <p class="card-text">
+       <div class="d-flex">
+           <div class="col-6">Kode Barang :</div>
+           <div class="col-6">{{$barang->kode_barang}}</div>
+
+       </div>
+       <div class="d-flex">
+           <div class="col-6">Nama Barang :</div>
+           <div class="col-6">{{$barang->nama_barang}}</div>
+
+       </div>
+       <div class="d-flex">
+           <div class="col-6">Stock :</div>
+           <div class="col-6">{{$barang->stok}}</div>
+
+       </div>
+       <div class="d-flex">
+           <div class="col-6">Tanggal Masuk :</div>
+           <div class="col-6">{{$barang->tanggal_masuk}}</div>
+
+       </div>
+        <div class="d-flex">
+           <div class="col-6">Harga :</div>
+           <div class="col-6">{{$barang->harga}}</div>
+
+       </div>
+    
+        <div class="d-flex">
+           <div class="col-6">Kategori</div>
+           <div class="col-6">{{$barang->kategori}}</div>
+
+       </div>
+        <div class="d-flex">
+           <div class="col-6">Deskripsi</div>
+           <div class="col-6">{{$barang->deskripsi}}</div>
+
+       </div>
+      </div>
+</p>
+    </div>
+  </div>
+</div>
+<a href="{{route('pengelola.index')}}" class="btn btn-outline-primary float-left">Kembali</a>   
                     </form>
                 </div>
             </div>

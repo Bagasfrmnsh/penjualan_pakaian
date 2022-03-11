@@ -32,38 +32,51 @@ Pesanan
                    <form action="{{route('pesanan.store')}}" method="post" enctype="multipart/form-data" placeholder="Masukan Angka" pottern="{12}" title="Dengan angka">
                         @csrf
                         <div class="form-group">
+                            <label for="">Kode Pesanan</label>
+                            <select type="text" name="kode_pesanan" class="form-control @error('kode_barang') is-invalid @enderror">
+                                @foreach($barang as $data)
+                                <option value="{{$data->id}}">{{$data->kode_barang}}</option>
+                                @endforeach
+                            </select>
+                             @error('kode_barang')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="">Pemesan</label>
-                            <input type="text" name="pemesan" class="form-control @error('pemesan') is-invalid @enderror">
+                            <textarea id="pemesan" name="pemesan" class="form-control @error('pemesan') is-invalid @enderror"></textarea>
                              @error('pemesan')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>Pemesan ini wajib di isi huruf!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Alamat</label>
-                            <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror">
-                             @error('alamat')
+                            <textarea id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror"></textarea>@error('alamat')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>Alamat ini wajib di isi huruf</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">No Telephone</label>
-                            <input type="text" name="no_telephone" class="form-control @error('no_telephone') is-invalid @enderror">
+                            <input type="number" name="no_telephone" class="form-control @error('no_telephone') is-invalid @enderror">
                              @error('no_telephone')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>Nomor Telephone ini wajib di isi angka</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Jumlah</label>
-                            <input type="text" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
+                            <input type="number" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
                              @error('jumlah')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>jumlah ini wajib di isi angka</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -82,10 +95,14 @@ Pesanan
                         </div>
                         <div class="form-group">
                             <label for="">Harga</label>
-                            <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror">
+                            <select type="text" name="harga" class="form-control @error('harga') is-invalid @enderror">
+                                @foreach($barang as $data)
+                                <option value="{{$data->harga}}">{{$data->harga}}</option>
+                                @endforeach
+                            </select>
                              @error('harga')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>Harga ini wajib di isi huruf</strong>
+                                    <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -94,7 +111,7 @@ Pesanan
                             <input type="date" name="tanggal_pesan" class="form-control @error('tanggal_pesan') is-invalid @enderror">
                              @error('tanggal_pesan')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>Tanggal Pesan ini wajib di isi huruf</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>

@@ -102,6 +102,7 @@
     @endif
 
     {{-- Custom Scripts --}}
+   @include('sweetalert::alert')
     @yield('adminlte_js')
 
 </body>

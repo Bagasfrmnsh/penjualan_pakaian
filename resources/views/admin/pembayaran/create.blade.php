@@ -39,7 +39,7 @@ Dashboard
                             </select>
                             @error('pesanan_id')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>nama pemesan wajib di isi!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -48,8 +48,8 @@ Dashboard
                             <input type="date" name="tanggal_bayar" class="form-control @error('tanggal_bayar') is-invalid @enderror">
                              @error('tanggal_bayar')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>tanggal bayar wajib di isi!</strong>
-                                </span>
+                                    <strong>{{$message}}</strong>
+                                </span> 
                             @enderror
                         </div>
                         <div class="form-group">

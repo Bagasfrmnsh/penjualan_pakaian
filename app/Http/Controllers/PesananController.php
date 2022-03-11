@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Alert;
 
 class PesananController extends Controller
 {
@@ -38,6 +39,7 @@ class PesananController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'kode_pesanan'=>'required',
             'pemesan'=>'required',
             'alamat'=>'required',
             'no_telephone'=>'required',
@@ -48,6 +50,7 @@ class PesananController extends Controller
         ]);
 
         $pesanan = new Pesanan;
+        $pesanan->kode_pesanan = $request->kode_pesanan;
         $pesanan->pemesan = $request->pemesan;
         $pesanan->alamat = $request->alamat;
         $pesanan->no_telephone = $request->no_telephone;
@@ -60,8 +63,9 @@ class PesananController extends Controller
         $barang = Barang::findOrFail( $request->barang_id);
         $barang->stok -= $request->jumlah;
         $barang->save();
+        Alert::success('Good Job', 'Data berhasil ditambahkan');
+        return redirect()->route('pesanan.index');
 
-        return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil ditambah');
     }
 
     /**
@@ -72,8 +76,9 @@ class PesananController extends Controller
      */
     public function show($id)
     {
+        $barang = Barang::all();
         $pesanan = Pesanan::findOrFail($id);
-        return view('admin.pesanan.show', compact('pesanan'));
+        return view('admin.pesanan.show', compact('pesanan' , 'barang'));
     }
 
     /**
@@ -100,6 +105,7 @@ class PesananController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
+            'kode_pesanan' => 'required',
             'pemesan' => 'required',
             'alamat'=>'required',
             'no_telephone'=>'required',
@@ -110,6 +116,7 @@ class PesananController extends Controller
         ]);
 
         $pesanan = Pesanan::findOrFail($id);
+        $pesanan->kode_pesanan = $request->kode_pesanan;
         $pesanan->pemesan = $request->pemesan;
         $pesanan->alamat = $request->alamat;
         $pesanan->no_telephone = $request->no_telephone;
@@ -129,8 +136,10 @@ class PesananController extends Controller
      */
     public function destroy($id)
     {
-        $pesanan =Pesanan::findOrFail($id);
-        $pesanan->delete();
-        return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil dihapus');
+        if (!Pesanan::destroy($id)) {
+            return redirect()->back();
+        }
+        Alert::success('Good Job', 'Data berhasil dihapus');
+        return redirect()->route('pesanan.index');
     }
 }

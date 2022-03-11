@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Alert;
+use validator;
 
 class BarangController extends Controller
 {
@@ -36,15 +38,18 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_barang'=>'required',
-            'stok'=>'required',
-            'tanggal_masuk'=>'required',
-            'harga'=>'required',
-            'kategori'=>'required',
-            'deskripsi'=>'required',
-        ]);
+     
+    $request->validate([
+        'nama_barang'=>'required|max:2048',
+        'stok'=>'required|numeric',
+        'tanggal_masuk'=>'required',
+        'harga'=>'required',
+        'kategori'=>'required',
+        'deskripsi'=>'required',
+        
+    ]);
         $barang = new Barang;
+        $barang->kode_barang = mt_rand(1000, 9000);
         $barang->nama_barang = $request->nama_barang;
         $barang->stok = $request->stok;
         $barang->tanggal_masuk = $request->tanggal_masuk;
@@ -61,10 +66,10 @@ class BarangController extends Controller
         return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil ditambahkan');
         $barang->gambar = $request->gambar;
         $barang->save();    
-        return redirect()->route('pengelola.index')->with
-        ('status', 'Produk Berhasil Ditambahkan');
-
+        Alert::success('Good Job', 'Data berhasil ditambahkan');
+        return redirect()->route('pengelola.index');
     }
+    
 
 
     /**
@@ -101,6 +106,7 @@ class BarangController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'kode_barang' => 'required',
             'nama_barang' => 'required',
             'stok' => 'required',
             'tanggal_masuk' => 'required',
@@ -111,6 +117,7 @@ class BarangController extends Controller
         ]);
 
         $barang = Barang::findOrFail($id);
+        $barang-> kode_barang = $request->kode_barang;
         $barang-> nama_barang = $request->nama_barang;
         $barang-> stok = $request->stok;
         $barang-> tanggal_masuk = $request->tanggal_masuk;
@@ -132,7 +139,15 @@ class BarangController extends Controller
         $barang = Barang::findOrFail($id);
 
         $barang->delete();
-
+        Alert::warning('Warning', 'Data tidak bisa dihapus');
         return redirect()->route('pengelola.index');
-    }
+
+    //     if (!Barang::destroy($id)) {
+    //         return redirect()->back();
+    //     }
+    //     Alert::success('Success', 'Data deleted successfully');
+    //     return redirect()->route('barang.index');
+    // }
 }
+}
+

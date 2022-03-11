@@ -65,6 +65,30 @@ Route::resource('admin/pengelola', BarangController::class);
 Route::resource('admin/pesanan', PesananController::class);
 Route::resource('admin/transaksi', PembayaranController::class);
 
+Route::get('/user', function() {
+    return view('frontend.home');
+});
+
+Route::get('/shop', function() {
+    return view('frontend.shop');
+});
+
+Route::get('/detail', function() {
+    return view('frontend.detail');
+});
+
+Route::get('/cart', function() {
+    return view('frontend.cart');
+});
+
+Route::get('/checkout', function() {
+    return view('frontend.checkout');
+});
+
+Route::get('/contact', function() {
+    return view('frontend.contact');
+});
+
 
 
 

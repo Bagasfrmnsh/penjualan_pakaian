@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pembayaran;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Alert;
 
 class PembayaranController extends Controller
 {
@@ -49,6 +50,7 @@ class PembayaranController extends Controller
         $pembayaran->tanggal_bayar = $request->tanggal_bayar;
         $pembayaran->total = $pembayaran->pesanan->jumlah * $pembayaran->pesanan->harga;
         $pembayaran->save();
+        Alert::success('Success', 'Data deleted successfully');
         return redirect()->route('transaksi.index');
     }
 
@@ -103,9 +105,17 @@ class PembayaranController extends Controller
      */
     public function destroy($id)
     {
-        $pembayaran =Pembayaran::findOrFail($id);
-        $pembayaran->delete();
-        return redirect()->route('transaksi.index');
+    // {
+    //     $pembayaran =Pembayaran::findOrFail($id);
+    //     $pembayaran->delete();
+    //     return redirect()->route('transaksi.index');
+    // }
+    if (!Pembayaran::destroy($id)) {
+        return redirect()->back();
     }
+    Alert::success('Success', 'Data deleted successfully');
+    return redirect()->route('transaksi.index');
+}
+
 }
 

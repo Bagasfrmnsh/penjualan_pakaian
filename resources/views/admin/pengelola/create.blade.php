@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-Dashboard
+BARANG
 
 @endsection
 @section('header')
@@ -25,26 +25,27 @@ Dashboard
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Data Produk
+                    DATA BARANG MASUK
                 </div>
                 <div class="card-body">
                    <form action="{{route('pengelola.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
+                    
                         <div class="form-group">
                             <label for="">Nama Barang</label>
                             <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror">
                              @error('nama_barang')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>nama barang ini wajib di isi huruf!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Stock</label>
-                            <input type="text" name="stok" class="form-control @error('stok') is-invalid @enderror">
+                            <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror">
                              @error('stok')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>stock ini wajib di isi angka!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -53,7 +54,7 @@ Dashboard
                             <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk') is-invalid @enderror">
                              @error('tanggal_masuk')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>tanggal ini wajib di isi angka!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -62,7 +63,7 @@ Dashboard
                             <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror">
                              @error('harga')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>harga ini wajib di isi angka!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -83,10 +84,10 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Deskripsi</label>
-                            <input type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror">
+                            <textarea id="deskripsi" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror"></textarea>
                              @error('deskripsi')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>deskripsi ini wajib di isi huruf!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -95,7 +96,7 @@ Dashboard
                             <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror">
                              @error('gambar')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>gambar ini wajib di isi!</strong>
+                                    <strong>{{$message}}</strong>
                                 </span>
                             @enderror
                         </div>

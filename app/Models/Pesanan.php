@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Alert;
 
 class Pesanan extends Model
 {
     use HasFactory;
-    protected $visible = ['pemesan','alamat','no_telephone','jumlah','barang_id','harga','tanggal_pesan'];
-    protected $fillable = ['pemesan','alamat','no_telephone','jumlah','barang_id','harga','tanggal_pesan'];
+    protected $visible = ['kode_pesanan','pemesan','alamat','no_telephone','jumlah','barang_id','harga','tanggal_pesan'];
+    protected $fillable = ['kode_pesanan','pemesan','alamat','no_telephone','jumlah','barang_id','harga','tanggal_pesan'];
     public $timestamps = true;
 
 
@@ -22,9 +23,20 @@ class Pesanan extends Model
 
     public function pembayaran()
     {
-        $this->hasMany('App\Models\Pembayaran', 'pesanan_id');
+       return $this->hasMany('App\Models\Pembayaran', 'pesanan_id');
 
 
     }
+
+    // public static function boot()
+    // {
+    //     parent::boot();
+    //     self::deleting(function ($parent) {
+    //         if ($parent->barang->count() > 0) {
+    //             Alert::error('Failed', 'Data not deleted');
+    //             return false;
+    //         }
+    //     });
+    // }
 
 }

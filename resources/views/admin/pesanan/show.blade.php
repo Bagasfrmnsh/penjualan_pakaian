@@ -28,39 +28,63 @@ Dashboard
                 <div class="card-body">
                         @csrf
                         @method('put')
-                        <div class="form-group">
-                            <label for="">Pemesan</label>
-                            <input type="text" name="pemesan" value="{{$pesanan->pemesan}}" class="form-control @error('pemesan') is-invalid @enderror" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Alamat</label>
-                            <input type="text" name="alamat" value="{{$pesanan->alamat}}" class="form-control @error('alamat') is-invalid @enderror" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="">No Telephone</label>
-                            <input type="text" name="no_telephone" value="{{$pesanan->no_telephone}}" class="form-control @error('no_telephone') is-invalid @enderror" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Jumlah</label>
-                            <input type="text" name="jumlah" value="{{$pesanan->jumlah}}" class="form-control @error('jumlah') is-invalid @enderror" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Id Barang</label>
-                            <input type="text" name="barang_id" value="{{$pesanan->barang->id}}" class="form-control @error('barang_id') is-invalid @enderror" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Harga</label>
-                            <input type="text" name="harga" value="{{$pesanan->harga}}" class="form-control @error('harga') is-invalid @enderror" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Tanggal Pesan</label>
-                            <input type="date" name="tanggal_pesan" value="{{$pesanan->tanggal_pesan}}" class="form-control @error('tanggal_pesan') is-invalid @enderror" readonly>
-                        </div>
-                        <div class="form-group">
-                            <a href="{{url('admin/pesanan')}}" class="btn btn-block btn-outline-primary">Kembali</a>
-                        </div>
+                        <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title" style: text-align = center>{{$pesanan->pemesan}}</h5>
+        <p class="card-text">
+       <div class="d-flex">
+           <div class="col-6">Kode Pemesan :</div>
+           <div class="col-6">{{$pesanan->kode_pesanan}}</div>
+
+       </div>
+       <div class="d-flex">
+           <div class="col-6">Pemesan :</div>
+           <div class="col-6">{{$pesanan->pemesan}}</div>
+
+       </div>
+       <div class="d-flex">
+           <div class="col-6">Alamat :</div>
+           <div class="col-6">{{$pesanan->alamat}}</div>
+
+       </div>
+       <div class="d-flex">
+           <div class="col-6">Nomor Telephone :</div>
+           <div class="col-6">{{$pesanan->no_telephone}}</div>
+
+       </div>
+        <div class="d-flex">
+           <div class="col-6">Jumlah :</div>
+           <div class="col-6">{{$pesanan->jumlah}}</div>
+
+       </div>
+    
+        <div class="d-flex">
+           <div class="col-6">Nama Barang :</div>
+           <div class="col-6">{{$pesanan->barang->nama_barang}}</div>
+
+       </div>
+        <div class="d-flex">
+           <div class="col-6">Harga :</div>
+           <div class="col-6">{{$pesanan->barang->harga}}</div>
+
+       </div>
+       <div class="d-flex">
+           <div class="col-6">Tanggal Pesan :</div>
+           <div class="col-6">{{$pesanan->tanggal_pesan}}</div>
+
+           </div>        
+       </div>        
+</p>
+    </div>
+  </div>
+  <a href="{{route('pesanan.index')}}" class="btn btn-outline-primary float-left">Kembali</a>   
+</div>
+
+
 
                 </div>
+                
             </div>
         </div>
     </div>
